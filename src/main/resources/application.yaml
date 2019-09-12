@@ -1,0 +1,37 @@
+eureka.client.serviceUrl.defaultZone: ${DISCOVERY_SCHEMA:http}://${DISCOVERY_HOST:localhost}:${DISCOVERY_PORT:8761}/eureka
+
+delivery:
+  currency.default: USD
+
+# ===============================
+# = JPA / HIBERNATE
+# ===============================
+dataSource:
+  driverClassName: org.postgresql.Driver
+  url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:delivery}
+  username: ${DB_USER:delivery}
+  password: ${DB_PASSWORD:delivery}
+hibernate:
+  dialect: org.hibernate.dialect.PostgreSQLDialect
+  hbm2ddl.auto: update
+
+# ===============================
+# = R A B B I T
+# ===============================
+spring:
+  rabbitmq:
+    host: ${BROKER_HOST:localhost}
+    port: ${BROKER_PORT:5672}
+    username: ${BROKER_USER:.....}
+    password: ${BROKER_PASSWORD:.....}
+    dynamic: true
+    exchange: project.exchange
+    queue: delivery.queue
+
+# ==============================================================
+# =             NETFLIX
+# ==============================================================
+feign:
+  hystrix:
+    enabled: "true"
+
